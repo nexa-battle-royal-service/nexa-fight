@@ -38,6 +38,23 @@ public class FightService {
         if (pvFighter2 <= 0) winner = fighter1;
         if (pvFighter1 <= 0 && pvFighter2 <= 0) winner = null;
         this.fightRepository.addFight(idFighter1, idFighter2, winner != null ? winner.id() : 0);
+        RestTemplate restTemplate = new RestTemplate();
+        if (winner == fighter1) {
+            restTemplate.postForObject(fighter1.url() + "/win",
+                                       null, Void.class);
+        } else {
+            restTemplate.postForObject(fighter1.url() + "/loose",
+                                       null, Void.class);
+        }
+        if (winner == fighter2) {
+            restTemplate.postForObject(fighter2.url() + "/win",
+                                       null, Void.class);
+        } else {
+            restTemplate.postForObject(fighter1.url() + "/loose",
+                                       null, Void.class);
+        }
+        restTemplate.postForObject(fighter1.url() + "/fight",
+                                   null, Void.class);
         return winner != null ? winner : new FighterDTO(0, "draw", 0, 0, 0, 0, "", "draw");
     }
 
