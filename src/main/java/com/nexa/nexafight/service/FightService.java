@@ -104,7 +104,8 @@ public class FightService {
 
     private static int getRandomInRange(final int min, final int max) {
         RestTemplate restTemplate = new RestTemplate();
-        return restTemplate.getForObject("http://localhost:8082/random-range?min=" + min + "&max=" + max,
-                                         Integer.class);
+        return restTemplate.getForObject(
+                "http://localhost:8082/random-range?min=" + min + "&max=" + max,
+                Integer.class);
     }
 }
