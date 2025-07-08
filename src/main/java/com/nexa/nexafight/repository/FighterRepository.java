@@ -3,6 +3,7 @@ package com.nexa.nexafight.repository;
 import com.nexa.nexafight.dto.FighterDTO;
 import com.nexa.nexafight.entity.Fighter;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.jpa.repository.query.Procedure;
 import org.springframework.stereotype.Repository;
 
@@ -28,4 +29,7 @@ public interface FighterRepository extends JpaRepository<Fighter, Integer> {
 
     @Procedure(procedureName = "getFighterById")
     Fighter findById(int id);
+
+    @Query(value = "CALL incrementXp(:fighterId)", nativeQuery = true)
+    Integer incrementXp(int fighterId);
 }

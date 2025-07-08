@@ -61,20 +61,19 @@ public class FightService {
         RestTemplate restTemplate = new RestTemplate();
         if (winner == fighter1) {
             restTemplate.postForObject(fighter1.url() + "/win",
-                                       null, Void.class);
+                                       String.class, String.class);
         } else {
-            restTemplate.postForObject(fighter1.url() + "/loose",
-                                       null, Void.class);
+            restTemplate.postForObject(fighter1.url() + "/lose",
+                                       String.class, String.class);
         }
         if (winner == fighter2) {
             restTemplate.postForObject(fighter2.url() + "/win",
-                                       null, Void.class);
+                                       String.class, String.class);
         } else {
-            restTemplate.postForObject(fighter1.url() + "/loose",
-                                       null, Void.class);
+            restTemplate.postForObject(fighter1.url() + "/lose",
+                                       String.class, String.class);
         }
-        restTemplate.postForObject(fighter1.url() + "/fight",
-                                   null, Void.class);
+        this.fighterRepository.incrementXp(winner.id());
         return winner != null ? winner : new FighterDTO(0, "draw", 0, 0, 0, 0, "", "draw");
     }
 
